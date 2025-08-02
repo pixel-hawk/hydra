@@ -1,0 +1,189 @@
+@use "../../../scss/globals.scss";
+
+.local-save-modal {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: globals.$spacing-unit;
+    padding-bottom: calc(globals.$spacing-unit * 2);
+    border-bottom: 1px solid globals.$border-color;
+    margin-bottom: calc(globals.$spacing-unit * 2);
+
+    @media (max-width: globals.$tablet) {
+      flex-direction: column;
+      align-items: stretch;
+      gap: calc(globals.$spacing-unit * 2);
+    }
+  }
+
+  &__title-container {
+    flex: 1;
+
+    small {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: globals.$spacing-unit;
+      color: globals.$muted-color;
+    }
+  }
+
+  &__state-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: globals.$spacing-unit;
+    flex-shrink: 0;
+
+    @media (max-width: globals.$tablet) {
+      align-items: flex-start;
+    }
+
+    p {
+      margin: 0;
+      color: globals.$muted-color;
+    }
+  }
+
+  &__backups-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: calc(globals.$spacing-unit * 2);
+  }
+
+  &__artifacts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: globals.$spacing-unit;
+  }
+
+  &__artifact {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: globals.$background-color-accent;
+    border-radius: globals.$border-radius;
+    padding: calc(globals.$spacing-unit * 2);
+
+    @media (max-width: globals.$tablet) {
+      flex-direction: column;
+      align-items: stretch;
+      gap: globals.$spacing-unit;
+    }
+  }
+
+  &__artifact-info {
+    flex: 1;
+  }
+
+  &__artifact-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: globals.$spacing-unit;
+  }
+
+  &__artifact-title {
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: globals.$body-color;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0;
+
+    &:hover {
+      color: globals.$primary-color;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: globals.$disabled-opacity;
+    }
+  }
+
+  &__artifact-details {
+    display: flex;
+    align-items: center;
+    gap: calc(globals.$spacing-unit * 2);
+    color: globals.$muted-color;
+
+    small {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    @media (max-width: globals.$tablet) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: globals.$spacing-unit;
+    }
+  }
+
+  &__artifact-actions {
+    display: flex;
+    gap: globals.$spacing-unit;
+    flex-shrink: 0;
+
+    @media (max-width: globals.$tablet) {
+      justify-content: flex-end;
+      align-items: center;
+    }
+  }
+
+  &__sync-icon {
+    animation: rotate 1s linear infinite;
+  }
+
+  &__progress {
+    width: 100%;
+    height: 5px;
+
+    &::-webkit-progress-bar {
+      background-color: globals.$dark-background-color;
+    }
+
+    &::-webkit-progress-value {
+      background-color: globals.$muted-color;
+    }
+  }
+
+  &__manage-files-button {
+    margin: 0;
+    padding: 0;
+    align-self: flex-start;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: underline;
+    color: globals.$body-color;
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: globals.$disabled-opacity;
+    }
+  }
+
+  &__backup-state-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

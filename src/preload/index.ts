@@ -231,9 +231,30 @@ contextBridge.exposeInMainWorld("electron", {
   uploadSaveGame: (
     objectId: string,
     shop: GameShop,
+    downloadOptionTitle: string | null,
+    useLocalBackup?: boolean
+  ) =>
+    ipcRenderer.invoke("uploadSaveGame", objectId, shop, downloadOptionTitle, useLocalBackup),
+  uploadLocalSaveGame: (
+    objectId: string,
+    shop: GameShop,
     downloadOptionTitle: string | null
   ) =>
-    ipcRenderer.invoke("uploadSaveGame", objectId, shop, downloadOptionTitle),
+    ipcRenderer.invoke("uploadLocalSaveGame", objectId, shop, downloadOptionTitle),
+  getLocalGameArtifacts: (objectId: string, shop: GameShop) =>
+    ipcRenderer.invoke("getLocalGameArtifacts", objectId, shop),
+  deleteLocalGameArtifact: (gameArtifactId: string) =>
+    ipcRenderer.invoke("deleteLocalGameArtifact", gameArtifactId),
+  downloadLocalGameArtifact: (
+    objectId: string,
+    shop: GameShop,
+    gameArtifactId: string
+  ) =>
+    ipcRenderer.invoke("downloadLocalGameArtifact", objectId, shop, gameArtifactId),
+  toggleLocalArtifactFreeze: (gameArtifactId: string, freeze: boolean) =>
+    ipcRenderer.invoke("toggleLocalArtifactFreeze", gameArtifactId, freeze),
+  renameLocalGameArtifact: (gameArtifactId: string, label: string) =>
+    ipcRenderer.invoke("renameLocalGameArtifact", gameArtifactId, label),
   toggleArtifactFreeze: (gameArtifactId: string, freeze: boolean) =>
     ipcRenderer.invoke("toggleArtifactFreeze", gameArtifactId, freeze),
   renameGameArtifact: (gameArtifactId: string, label: string) =>

@@ -16,6 +16,8 @@ import { GameDetailsContent } from "./game-details-content";
 import {
   CloudSyncContextConsumer,
   CloudSyncContextProvider,
+  LocalSaveContextConsumer,
+  LocalSaveContextProvider,
   GameDetailsContextConsumer,
   GameDetailsContextProvider,
 } from "@renderer/context";
@@ -24,6 +26,7 @@ import { GameOptionsModal, RepacksModal } from "./modals";
 import { Downloader, getDownloadersForUri } from "@shared";
 import { CloudSyncModal } from "./cloud-sync-modal/cloud-sync-modal";
 import { CloudSyncFilesModal } from "./cloud-sync-files-modal/cloud-sync-files-modal";
+import { LocalSaveModal } from "./local-save-modal/local-save-modal";
 import "./game-details.scss";
 
 export default function GameDetails() {
@@ -128,29 +131,44 @@ export default function GameDetails() {
 
           return (
             <CloudSyncContextProvider objectId={objectId!} shop={shop}>
-              <CloudSyncContextConsumer>
-                {({
-                  showCloudSyncModal,
-                  setShowCloudSyncModal,
-                  showCloudSyncFilesModal,
-                  setShowCloudSyncFilesModal,
-                }) => (
-                  <>
-                    <CloudSyncModal
-                      onClose={() => setShowCloudSyncModal(false)}
-                      visible={showCloudSyncModal}
-                    />
+              <LocalSaveContextProvider objectId={objectId!} shop={shop}>
+                <CloudSyncContextConsumer>
+                  {({
+                    showCloudSyncModal,
+                    setShowCloudSyncModal,
+                    showCloudSyncFilesModal,
+                    setShowCloudSyncFilesModal,
+                  }) => (
+                    <>
+                      <CloudSyncModal
+                        onClose={() => setShowCloudSyncModal(false)}
+                        visible={showCloudSyncModal}
+                      />
 
-                    <CloudSyncFilesModal
-                      onClose={() => setShowCloudSyncFilesModal(false)}
-                      visible={showCloudSyncFilesModal}
-                    />
-                  </>
-                )}
-              </CloudSyncContextConsumer>
+                      <CloudSyncFilesModal
+                        onClose={() => setShowCloudSyncFilesModal(false)}
+                        visible={showCloudSyncFilesModal}
+                      />
+                    </>
+                  )}
+                </CloudSyncContextConsumer>
 
-              <SkeletonTheme baseColor="#1c1c1c" highlightColor="#444">
-                {isLoading ? <GameDetailsSkeleton /> : <GameDetailsContent />}
+                <LocalSaveContextConsumer>
+                  {({
+                    showLocalSaveModal,
+                    setShowLocalSaveModal,
+                  }) => (
+                    <>
+                      <LocalSaveModal
+                        onClose={() => setShowLocalSaveModal(false)}
+                        visible={showLocalSaveModal}
+                      />
+                    </>
+                  )}
+                </LocalSaveContextConsumer>
+
+                <SkeletonTheme baseColor="#1c1c1c" highlightColor="#444">
+                  {isLoading ? <GameDetailsSkeleton /> : <GameDetailsContent />}
 
                 <RepacksModal
                   visible={showRepacksModal}
@@ -199,6 +217,7 @@ export default function GameDetails() {
                   </Button>
                 )}
               </SkeletonTheme>
+              </LocalSaveContextProvider>
             </CloudSyncContextProvider>
           );
         }}

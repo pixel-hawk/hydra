@@ -8,7 +8,7 @@ import { GallerySlider } from "./gallery-slider/gallery-slider";
 import { Sidebar } from "./sidebar/sidebar";
 
 import { useTranslation } from "react-i18next";
-import { cloudSyncContext, gameDetailsContext } from "@renderer/context";
+import { cloudSyncContext, localSaveContext, gameDetailsContext } from "@renderer/context";
 import { AuthPage } from "@shared";
 
 import cloudIconAnimated from "@renderer/assets/icons/cloud-animated.gif";
@@ -36,6 +36,9 @@ export function GameDetailsContent() {
 
   const { setShowCloudSyncModal, getGameArtifacts } =
     useContext(cloudSyncContext);
+
+  const { setShowLocalSaveModal, getGameArtifacts: getLocalGameArtifacts } =
+    useContext(localSaveContext);
 
   const aboutTheGame = useMemo(() => {
     const aboutTheGame = shopDetails?.about_the_game;
@@ -92,9 +95,14 @@ export function GameDetailsContent() {
     setShowCloudSyncModal(true);
   };
 
+  const handleLocalSaveButtonClick = () => {
+    setShowLocalSaveModal(true);
+  };
+
   useEffect(() => {
     getGameArtifacts();
-  }, [getGameArtifacts]);
+    getLocalGameArtifacts();
+  }, [getGameArtifacts, getLocalGameArtifacts]);
 
   return (
     <div
@@ -140,6 +148,14 @@ export function GameDetailsContent() {
                   />
                 </div>
                 {t("cloud_save")}
+              </button>
+
+              <button
+                type="button"
+                className="game-details__local-save-button"
+                onClick={handleLocalSaveButtonClick}
+              >
+                💾 {t("local_save")}
               </button>
             </div>
           </div>

@@ -8,6 +8,7 @@ export * from "./main-loop";
 export * from "./hydra-api";
 export * from "./ludusavi";
 export * from "./cloud-sync";
+export * from "./local-save-backup";
 export * from "./7zip";
 export * from "./game-files-manager";
 export * from "./common-redist-manager";

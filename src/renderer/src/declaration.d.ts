@@ -227,6 +227,31 @@ declare global {
       objectId: string,
       backupPath: string | null
     ) => Promise<void>;
+
+    /* Local save backup */
+    uploadLocalSaveGame: (
+      objectId: string,
+      shop: GameShop,
+      downloadOptionTitle: string | null
+    ) => Promise<void>;
+    getLocalGameArtifacts: (
+      objectId: string,
+      shop: GameShop
+    ) => Promise<GameArtifact[]>;
+    deleteLocalGameArtifact: (gameArtifactId: string) => Promise<{ ok: boolean }>;
+    downloadLocalGameArtifact: (
+      objectId: string,
+      shop: GameShop,
+      gameArtifactId: string
+    ) => Promise<void>;
+    toggleLocalArtifactFreeze: (
+      gameArtifactId: string,
+      freeze: boolean
+    ) => Promise<void>;
+    renameLocalGameArtifact: (
+      gameArtifactId: string,
+      label: string
+    ) => Promise<void>;
     onBackupDownloadComplete: (
       objectId: string,
       shop: GameShop,
